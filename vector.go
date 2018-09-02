@@ -50,35 +50,11 @@ func (a Vector) Copy() Vector {
    return x
 }
 
-/*
-func (x Vector) Add(y Number) Vector {
-   z := x.Copy()
-   for i, xt := range x {
-      //z[i] = xt.Add(y)
-      z[i] = xt.Apply(ADD, y)
-   }
-   return z
-}
-
-func (x Vector) Addv(y Vector) Vector {
-   if len(x) != len(y) {
-      panic("Add: length error")
-   }
-
-   z := x.Copy()
-   for i, xt := range x {
-      //z[i] = xt.Add(y[i])
-      z[i] = xt.Apply(ADD, y[i])
-   }
-   return z
-}
-*/
-
-func (x Vector) Sel(y Vector) (Vector, error) {
+func (x Vector) Sel(y []int) (Vector, error) {
    var z Vector
    n := len(x)
-   for _, t := range y {
-      k := int(t.ToInteger())
+   for _, k := range y {
+      //k := int(t.ToInteger())
       if k < 0 || k > n-1 {
          return nil, fmt.Errorf("array.sel: index out of bound: k = %d", k)
       }
@@ -87,7 +63,7 @@ func (x Vector) Sel(y Vector) (Vector, error) {
    return z, nil
 }
 
-func (x Vector) Seln(y Vector, d int) (Vector, error) {
+func (x Vector) Seln(y []int, d int) (Vector, error) {
    //k := x.Dim()-d
    k := 1-d
 
@@ -138,14 +114,14 @@ func (x Vector) Apply(fn NNN, y Vector) Vector {
 }
 
 // IApply: in place
-func (a *Vector) IApply(fn NNN, b Vector) *Vector {
-   if len(*a) != len(b) {
+func (x Vector) IApply(fn NNN, y Vector) Vector {
+   if len(x) != len(y) {
       panic("arrays of unequal lengths")
    }
-   for i := range *a {
-      (*a)[i] = fn((*a)[i], b[i])
+   for i, xt := range x {
+      x[i] = fn(xt, y[i])
    }
-   return a
+   return x
 }
 
 func (a Vector) Filter(fn N1fb) Vector {

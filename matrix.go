@@ -18,11 +18,11 @@ func (a Matrix) Copy() Matrix {
    return x
 }
 
-func (x Matrix) Sel(y Vector) (Matrix, error) {
+func (x Matrix) Sel(y []int) (Matrix, error) {
    var t Matrix
    n := len(x)
-   for _, s := range y {
-      k := int(s.ToInteger())
+   for _, k := range y {
+      //k := int(s.ToInteger())
       if k < 0 || k > n-1 {
          return nil, fmt.Errorf("matrix.sel: index out of bound: k = %d", k)
       }
@@ -31,7 +31,7 @@ func (x Matrix) Sel(y Vector) (Matrix, error) {
    return t, nil
 }
 
-func (x Matrix) Seln(y Vector, d int) (Matrix, error) {
+func (x Matrix) Seln(y []int, d int) (Matrix, error) {
    //k := x.Dim()-d
    k := 2-d
 
@@ -91,6 +91,13 @@ func (x Matrix) Apply(f NNN, y Vector) Matrix {
       z = append(z, xt.Map(f.Right(y[i])))
    }
    return z
+}
+
+func (x Matrix) IApply(f NNN, y Vector) Matrix {
+   for i, xt := range x {
+      xt.IMap(f.Right(y[i]))
+   }
+   return x
 }
 
 func (x Matrix) Transpose() Matrix {

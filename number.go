@@ -16,12 +16,12 @@ type N1fb func(Number) bool
 type N2fb func(Number, Number) bool
 
 var ADD NNN = func(x, y Number) Number { return x.ToReal()+y.ToReal() }
-var ADDr RRR = func(x, y Real) Real { return x+y }
-var ADDi III = func(x, y Integer) Integer { return x+y }
 var SUB NNN = func(x, y Number) Number { return x.ToReal()-y.ToReal() }
 var MUL NNN = func(x, y Number) Number { return x.ToReal()*y.ToReal() }
 var DIV NNN = func(x, y Number) Number { return x.ToReal()/y.ToReal() }
 
+var ADDr RRR = func(x, y Real) Real { return x+y }
+var ADDi III = func(x, y Integer) Integer { return x+y }
 var GT N2fb = func(x, y Number) bool { return x.ToReal()>y.ToReal() }
 var LT N2fb = func(x, y Number) bool { return x.ToReal()<y.ToReal() }
 
